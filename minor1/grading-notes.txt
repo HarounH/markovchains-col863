@@ -1,0 +1,44 @@
+[Manoj Q1]
+
+Latex errors - far too many. please use $_{TV}$ instead of $_TV$ 
+Please use $\mu$ and $\nu$ instead of $mu$ and $nu$
+
+Cool idea - to use induction.
+
+Bad idea - to add inequalities correctly.
+	The step where he goes from
+	\pr(X \neq Y) \leq \pr(X_1 \neq Y_1) + \pr(X_2 \neq Y_2)
+	to 
+	dist(mu,nu) \leq dist(mu_1,nu_1) + dist(mu_2,nu_2) 
+
+	is an incorrect use of inequalities.
+	a<a' AND b<b' AND c<c' AND a'<=b'+c' DOES NOT IMPLY a<=b+c. (same for >)
+
+Wrong proof - what do I give him? ... 70%? (he wrote a correct base case and IH. Incorrect proof?)
+
+[Manoj Q2]
+
+More latex errors!
+
+Like the valid coupling proof - Px is a bijection :)
+Wanted bound on \tmix(\epsilon) not just \tmix(1/4) ... sadness.
+Going from \tmix(1/4) to \tmix(\epsilon) is really just a small change. 
+
+I'd say 90% because calculation error, really. you can't just forget epsilon :(
+
+[Manoj Q3]
+\tmix(1/4) not \tmix(\epsilon)... not penalizing for this.
+Argumentation is correct for the coupling used.
+The coupling essentially matches Aldous.
+(n^4) bound instead of (n^3 log(n))
+
+
+[Manav Q1]
+Could've argued that (X_i,Y_i) and (X_j,Y_j) are independent, but its okay.
+
+[Manav Q2]
+Argued expected waiting time. Unclear how he went from Pr(A) to Expected waiting time.
+Didn't continue to show a bound on \tmix(\epsilon) ... what does expected waiting time have to do with \tmix(\epsilon)
+
+[Manav Q3]
+Not attempted

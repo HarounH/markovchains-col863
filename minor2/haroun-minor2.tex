@@ -1,0 +1,168 @@
+\documentclass[12pt]{article}
+
+\textwidth6.75in \textheight9in \oddsidemargin-10pt \evensidemargin-10pt
+\topmargin-47pt
+
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amscd}
+\usepackage{epsfig}
+
+
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{problem}{Problem}[section]
+\def\rta{\stackrel{a}{\rightarrow}}
+\def\rtb{\stackrel{b}{\rightarrow}}
+\def\CR{{\cal R}}
+\def\CA{{\cal A}}
+\def\CP{{\cal P}}
+\def\CI{{\cal I}}
+\def\CT{{\cal T}}
+\def\ex{\mbox{\bf E}}
+\def\pr{\mbox{\bf P}}
+\def\tmix{t_{\mbox{mix}}}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\LL}{\mathbb{L}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\begin{document}
+\begin{center}
+{\large COL863: Special Topics in Theoretical Computer Science\\ Rapid Mixing in Markov Chains\\ II semester, 2016-17}\\
+{\large Minor II}\\
+Total Marks 100\\
+{\bf Due: On moodle at 11:55PM, 6th March 2017}
+\ \\
+\end{center}
+
+%\maketitle
+\setcounter{section}{2}
+
+\begin{problem} {\bf (30 marks)}
+Ex 9.1 of LPW Edition 2. Generalize the flow in the upper bound of (9.25) to higher dimensions using an urn with balls of $d$ colours. Use this to show that the resistance between opposite corners of the $d$-dimensional box of side length $n$ is bounded independent $n$, when $d \geq 3$. Explain what this means for the simple random walk on $\ZZ^d$, $d\geq 3$.
+\end{problem}
+
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+First, we generalize the flow used in the upper bound. Consider an Urn process which uses balls of \(d\) colors. Initially, the urn has one ball of each color. At each time step, a ball is drawn randomly and replaced by two balls of the same color. We represent the Urn by a \(d\) tuple, \({\bf x}\) such that \({\bf x}_i\) is the number of balls of color \(i\)\\*
+Consider the unit flow \(\theta\) such that \(\theta(e)=\Pr\{\mathrm{Urn\ uses \ edge\ }e\}\) \\*
+Similar to the 2 color Polya Urn, the multicolor Urn process is equally likely to be in any state such that \(\sum_i^d {\bf x}_i = k+d\) where \(k\) is the number of time steps that have passed.\\*
+Since there are \({k+d \choose d}\) such states (ignoring \(d\)'s 1-indexing), and each state has \(d\) outgoing edges, the flow through each edge is \(({{k+d \choose d}d})^{-1}\). \\*
+We then bound energy of the flow as 
+\[
+	\varepsilon(\theta) \leq 2\sum_k^{n-1}({{k+d \choose d}d})^{-1}
+	\leq c\sum_k^{n-1} dk^{-d}
+\]
+The bound holds because \( \exists c | (\frac{{k+d \choose d}}{k^{-d}}) \leq c\ \forall\ d>0\). When \(d>1\), \(\sum_k^{n-1} k^{-d} \leq c'\).
+Therefore,
+\[
+	\varepsilon(\theta) \leq dc'
+\]
+Thus, the energy of the flow is upper bounded independent of \(n\).
+\\*
+\vspace{1cm}
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+
+\pagebreak
+\begin{problem} {\bf (20 marks)}
+Ex 9.7 of LPW Edition 2. Let $B_n$ be the subset of $\ZZ^2$ contained in the box of side length $2n$ centred at the origin, 0. Let $\partial B_n$ be the set of vertices on the perimeter of the box. Show that
+\[ \lim_{n\rightarrow \infty} \pr_{0} \{\tau_{\partial B_n} < \tau_{0}^+\} = 0.\]
+\end{problem}
+
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+We know \(\Pr_a\{\tau_z<\tau_a^+\} = [c(a)\mathcal{R}(a\leftrightarrow z)]^{-1}\). However, the graph doesn't have a \(z\) vertex. To apply the tools that we have, we create a \(z\) vertex by adding an edge \(e_{t,z} \forall t\in {\partial B_n}\) with conductance on each edge being \(\infty\). Hence, the probability of moving to \(z\) upon reaching \({\partial B_n}\) is \(1\). Also notice that \(\pr_{0} \{\tau_{\partial B_n} < \tau_0^+\}\) is not exactly \(\pr_{0} \{\tau_{z}<\tau_0^+\}\). We have bounds on \(\mathcal{R}(a\leftrightarrow z)\) in terms of \(n\). Specifically, 
+\[
+	\frac{\log(2n-1)}{2} \leq \mathcal{R}(a \leftrightarrow z) \leq 2\log(2n)
+\]
+which means that the escape probability is bounded by the inverse of above bounds. Further, under the limit \(n\rightarrow \infty\), the escape probability gets sandwiched to \(0\).
+\[
+\lim_{n\rightarrow\infty}\pr_{0} \{\tau_{z}<\tau_0^+\} = 0
+\]
+Notice that if \(n>2\), then \(\{\tau_{\partial B_n} < \tau_0^+\} \implies \{\tau_z < \tau_0^+\}\). \\*
+Therefore, \(\Pr\{\tau_{\partial B_n} < \tau_0^+\} < \Pr\{\tau_z < \tau_0^+\} \). Also, \(\Pr\{\tau_{\partial B_n}\}\geq 0\). Hence, in the limit, \(\Pr\{\tau_{\partial B_n} < \tau_0^+\} = 0 \)
+\\*
+\vspace{1cm}
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+
+\pagebreak
+\begin{problem} {\bf (30 marks)}
+Ex 9.9 of LPW Edition 2. Given a network $(G = (V,E), \{c(e)\})$, define the {\em Dirichlet energy} of a function $f : V \rightarrow \RR$ as 
+\[ \mathcal{E}_D(f) = \frac{1}{2} \sum_{v,w}[f(v) - f(w)]^2 c(v,w).\]
+\begin{description}
+\item{(a)} Prove that 
+\[ \min_{f: f(v)=1, f(w) = 0} \mathcal{E}_D(f) = \mathcal{C}(v \leftrightarrow w),\]
+and the unique minimizer is harmonic on $V \setminus \{v,w\}$.
+\item{(b)} Deduce that $\mathcal{C}(v \leftrightarrow w)$ is a convex function of edge conductances. 
+\end{description}
+
+\end{problem}
+
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+\begin{description}
+\item{(a)} The notation is a little confusing. We will show that 
+\[ \min_{f: f(a)=1, f(z) = 0} \mathcal{E}_D(f) = \mathcal{C}(a \leftrightarrow z),\]
+and that the unique minimizer is harmonic on $V \setminus \{a,z\}$.\\*
+Differentiate \(\mathcal{E}_D(f)\) wrt \(f(x)\) where \(x \in V\)
+\[
+\frac{{\partial \mathcal{E}_D}}{{\partial f(x)}} = \sum_{y:y~x} [f(x)-f(y)]c(x,y) = f(x)c(x) - \sum_{y:y~x}f(y)c(x,y)
+\]
+For \(f\) to be a minimizer, \(\frac{{\partial \mathcal{E}_D}}{{\partial f(x)}} = 0 \implies f(x)c(x) = \sum_{y}f(y)c(x,y)\). We also know that \(P(x,y)=\frac{c(x,y)}{c(x)}\).\\*
+\[
+	\therefore f(x) = \sum_y f(y)P(x,y)
+\]
+Hence, the minimizer is harmonic on \(V \setminus \{a,z\}\). Hence, the minimizer is a voltage. We will denote the minimizer by \(W\). \\*
+Since the minimizer is a voltage, it is uniquely determined by its boundaries. Hence, the minimizer is unique. \\*
+Further, the definition of \(\mathcal{E}_D\) implies that 
+\[
+\mathcal{E}_D=\frac{1}{2}\sum_{v,w}[W(v)-W(w)]I(\bar{vw}) = \frac{1}{2}\sum_{v} W(v)\sum_{w}I(\bar{vw})
+\]
+The last equality holds because \(I\) is antisymmetric. By the node law, \(\sum_{w}I(\bar{vw})=0 \forall v\in V\setminus\{a,z\}\)
+Hence, 
+\[
+\mathcal{E}_D = W(a)\sum_{w}I(\bar{aw})
+\]
+Notice that \(W(z)=0, W(a)=1\). Also, \(\sum_{w}I(\bar{aw}) = \lVert I\rVert\). We can hence rewrite \(\mathcal{E}_D\) as \(\frac{\lVert I\rVert}{W(a)} = \mathcal{R}(a\leftrightarrow z)^{-1} = \mathcal{C}(a \leftrightarrow z)\) 
+\item{(b)} We will deduce that \(\mathcal{C}(a \leftrightarrow z)\) is a convex function of edge conductances. Since we have already proved that the minimum value of the Dirichlet energy is \(\mathcal{C}(a \leftrightarrow z) \), we have 
+\[
+\mathcal{C}(a \leftrightarrow z) = \sum_{e:(v,w)}[W(v)-W(w)]^2c(e)
+\]
+We recall that a function that is monotonically non-decreasing on a set of variables is convex on that set of variables. We notice that 
+\[
+\frac{\partial \mathcal{C}(a \leftrightarrow z)}{\partial c(e:(v,w))} = [W(v)-W(w)]^2 \geq 0
+\]
+Hence we conclude that \(\mathcal{C}(a \leftrightarrow z) \) is convex on the conductances of the edges.\\*
+\end{description}
+\vspace{1cm}
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+
+\pagebreak
+\begin{problem} {\bf (20 marks)}
+Ex 10.3 of LPW Edition 2. Let $G$ be a connected graph on at least three vertices in which the vertex $v$ has only 1 neighbour, $w$. Show that the simple random walk on $G$ (i.e. $c(e) = 1$ for all edges) satisfied $\ex_v \tau_w \neq \ex_w \tau_v$.
+\end{problem}
+
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+First, \(\ex_v\tau_w = 1P(v,w) + P(v,v)(1 + \ex_v\tau_w)\). After some rearrangement, \(\ex_v\tau_w = \frac{1}{P(v,w)} \) since \(v\) has only one neighbour. Since \(\forall e,c(e)=1, \ex_v\tau_w=1\) \\*
+Next, consider \(\ex_w\tau_v \). The random walk reaches \(v\) in one of two ways:
+\begin{description}
+\item Transition from \(w\) to \(v\)
+\item Transition from \(w\) to some other state, then back to \(w\)
+\end{description}
+Notice that the random walk cannot reach \(v\) through any other state because \(v\) has only one neighbour. Thus, \(\ex_w\tau_v = 1P(w,v) + (1-P(w,v))(\ex_w\tau_w^+ + \ex_w\tau_v) \) \\*
+\[
+\ex_w\tau_v = 1 + (1-P(w,v))\ex_w\tau_w^+ > 1 = \ex_v\tau_w
+\]
+Notice that the inequality holds because \(w\) must be connected to atleast one vertex other than \(v\) because \(\mathcal{G} \) is a connected graph. \\*
+\vspace{1cm}
+\centerline{\rule{0.75\paperwidth}{0.4pt}}
+
+
+
+
+
+\end{document}
